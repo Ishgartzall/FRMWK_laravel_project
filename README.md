@@ -7,61 +7,47 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Framework based programming Laravel Project of Victor Lequeux Audran
 
-TEST
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Welcome to the Github repository of the Laravel project of Victor Lequeux Audran done for the course Framework Based Programmming at ITS !
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Use of Tailwind template and Blade component
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+In order to have a functional and clear Website, I used the PHP code of free pages templates in my views from the website Tailwind.
 
-## Learning Laravel
+<p align="center">
+    <img src = "img/capture_posts.jpg">
+</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+And to avoid redundancy between my pages I used Blade Components to factorize my code for common elements like the navigation bar and the header   
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<p align="center">
+    <img src = "img/capture_blade_components.jpg">
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Database 
 
-## Laravel Sponsors
+My database is handled by Table plus and is using SQLite.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<p align="center">
+    <img src = "img/capture_table_plus_home.jpg">
+    <img src = "img/capture_database_posts.jpg">
+</p>
 
-### Premium Partners
+To interact with  my database I am using Eloquent ORM models.  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<p align="center">
+    <img src = "img/capture_eloquent_ORM_model.jpg">
+</p>
 
-## Contributing
+### Commits History 
+Regarding the code pushed on Github, please be aware that all the commits before the one named "Merge branch 'recovered work'" (Sep 19 2024 - id : c55d8411d7fe51dc48da76154c67618c94d596e8) are not to consider : I had issues setting up this repository (that's why I will start explaining my modifications from this commit  and not before).
+<ul>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<li> No more 404 when cliking navbar from a post - 19 sep 2024 - 69b9bfcc2021056bc02b631c6ba6e535d5696d02 : this commits was to had '/' in all the line with an href going to another page of my navbar.blade.php component to avoid 404 error when clicking on another page from the page of a specific post </li> 
 
-## Code of Conduct
+<li> Test - 19 sep 2024 - ef36231231839d6626220d073d4cbe16e27f094a : I wasn't sure if my merge worked so I tried modifiying just this README.md files to see if it uploaded it on Github and it worked </li> 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<li> Merge branch 'recovered work' - 19 sep 2024 - c55d8411d7fe51dc48da76154c67618c94d596e8 : as I said I had issues before I lost my work and I had to recover it so I worked on a detached head, this commits was to reattach my recovered work to the main branch.
+c55d8411d7fe51dc48da76154c67618c94d596e8 </li>
+</ul>
