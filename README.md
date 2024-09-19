@@ -34,16 +34,21 @@ To interact with  my database I am using Eloquent ORM models.
     <img src = "public/img/capture_eloquent_ORM_model.jpg">
 </p>
 
-## Commits History 
-Regarding the code pushed on Github, please be aware that all the commits before the one named "Merge branch 'recovered work'" (Sep 19 2024 - id : c55d8411d7fe51dc48da76154c67618c94d596e8) are not to consider : I had issues setting up this repository (that's why I will start explaining my modifications from this commit  and not before).
-<ul>
+## Commits History
 
+Please note that all commits before the one named **"Merge branch 'recovered work'" (Sep 19, 2024 - ID: c55d8411d7fe51dc48da76154c67618c94d596e8)** are not relevant, as I encountered issues setting up the repository. Therefore, I will start explaining my modifications from this commit onward.
 
-<li> No more 404 when cliking navbar from a post - 19 sep 2024 - 69b9bfcc2021056bc02b631c6ba6e535d5696d02 : this commits was to had '/' in all the line with an href going to another page of my navbar.blade.php component to avoid 404 error when clicking on another page from the page of a specific post </li> 
+### Key Commits:
 
+- **No more 404 errors when clicking the navbar from a post**  
+  *Date: Sep 19, 2024 - ID: 69b9bfcc2021056bc02b631c6ba6e535d5696d02*  
+  This commit adds a `/` to all lines with an `href` going to another page in my `navbar.blade.php` component. It fixes the issue where clicking on a different page from a specific post resulted in a 404 error.
 
-<li> Test - 19 sep 2024 - ef36231231839d6626220d073d4cbe16e27f094a : I wasn't sure if my merge worked so I tried modifiying just this README.md files to see if it uploaded it on Github and it worked. </li> 
+- **Test **  
+  *Date: Sep 19, 2024 - ID: ef36231231839d6626220d073d4cbe16e27f094a*  
+  This was a test commit to verify if my merge worked. I made a minor modification to this `README.md` file to ensure it was uploaded correctly to GitHub.
 
+- **Merge branch 'recovered work'**  
+  *Date: Sep 19, 2024 - ID: c55d8411d7fe51dc48da76154c67618c94d596e8*  
+  After losing my work and recovering it, I was working on a detached head. This commit reattached my recovered work to the main branch.
 
-<li> Merge branch 'recovered work' - 19 sep 2024 - c55d8411d7fe51dc48da76154c67618c94d596e8 : as I said I had issues before I lost my work and I had to recover it so I worked on a detached head, this commits was to reattach my recovered work to the main branch. </li>
-</ul>
