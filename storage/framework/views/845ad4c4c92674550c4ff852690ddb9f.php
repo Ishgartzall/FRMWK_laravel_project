@@ -14,10 +14,31 @@
     <a href="/posts/<?php echo e($post['slug']); ?>" class="hover:underline">
       <h2 class = "mb-1 text-3xl tracking-tight font-bold text-gray-900"><?php echo e($post['title']); ?></h2>
     </a>
+
     <div class="text-base text-gray-500">
-      <a href=""><?php echo e($post['author']); ?></a> | <?php echo e($post->created_at->diffForHumans()); ?>
+      <!-- Dynamic Category Color -->
+      <a href="/categories/<?php echo e($post->category->id); ?>" class="hover:underline">
+        <span class="category-label 
+            <?php if($post->category->name == 'Science'): ?> category-science 
+            <?php elseif($post->category->name == 'Environment'): ?> category-environment
+            <?php elseif($post->category->name == 'Economy'): ?> category-economy
+            <?php elseif($post->category->name == 'Sport'): ?> category-sport
+            <?php elseif($post->category->name == 'Politics'): ?> category-politics
+            <?php endif; ?>">
+          <?php echo e($post->category->name); ?>
+
+        </span>
+      </a> 
+      | <a href="/authors/<?php echo e($post->author->id); ?>" class="hover:underline"><?php echo e($post->author->name); ?></a> 
+      | <?php echo e($post->created_at->diffForHumans()); ?>
+
+    </div>
+     <!-- original code 
+    <div class="text-base text-gray-500 ">
+    <a href="/categories/<?php echo e($post->category->id); ?>" class="hover:underline"><?php echo e($post->category->name); ?></a> | <a href="/authors/<?php echo e($post->author->id); ?>" class="hover:underline"><?php echo e($post->author->name); ?></a> | <?php echo e($post->created_at->diffForHumans()); ?>
 
     </div>  
+    -->
     <p class="my-4 font-light"><?php echo e(Str::limit($post['body'],100)); ?></p>
     <a href="/posts/<?php echo e($post['slug']); ?>" class="font-medium text-blue-500 hover:underline">Read more &raquo</a>
   </article>

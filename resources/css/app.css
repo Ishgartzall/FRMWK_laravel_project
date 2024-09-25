@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.category-science { color: blue; }
+.category-environment { color: green; }
+.category-economy { color: orange; }
+.category-sport { color: red; }
+.category-politics { color: rgb(79, 76, 76); }

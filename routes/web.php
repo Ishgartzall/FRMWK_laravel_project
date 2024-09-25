@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request; //NE PAS OUBLIER !
@@ -8,7 +10,7 @@ use Illuminate\Http\Request; //NE PAS OUBLIER !
 
 
 //cette commande veut dire : lorsqu'on accède à l'URL '/' (càd la racine du site), lance la fonction suivante : 
-//retourne la view (= la page web avec son code HTML son style CSS, etc... mais écrit en PHP) nommée "Welcome" qui ici est la page d'accueil de Laravel   
+//retourne la view (= la page web avec son code HTML son style CSS, etc... mais écrit en PHP) nommée "home" qui ici est la page d'accueil de notre site   
 Route::get('/', function () {
     return view('home', ['title'=>'Home page']);
 });
@@ -22,10 +24,18 @@ Route::get('/posts', function () {
 });
 
 Route::get('/posts/{post:slug}',function(Post $post){
-    
     //$post=Post::find($id);
-
     return view('post',['title' => 'Single Post', 'post' => $post]);
+});
+
+Route::get('/authors/{user}',function(User $user){
+    //$post=Post::find($id);
+    return view('posts',['title' => 'Articles written by '.$user->name, 'posts' => $user->posts]);
+});
+
+Route::get('/categories/{category}',function(Category $category){
+    //$post=Post::find($id);
+    return view('posts',['title' => 'Articles on the topic '.$category->name, 'posts' => $category->posts]);
 });
 
 Route::get('/contact', function () {

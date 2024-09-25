@@ -1,4 +1,4 @@
-# Framework based programming Laravel Project of Victor Lequeux Audran
+# Laravel Project of Victor LEQUEUX AUDRAN
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
@@ -41,7 +41,7 @@ To automatically fill the "posts" table in my database, I created a new factory 
     <img src = "public/img/capture_code_PostFactory.jpg">
 </p>
 
-I wanted to personalize it so that the names of post's authors sounded french. The PHP library `Fake` allows us to do that by modifying the value of the `APP_FAKER_LOCALE`variable to `fr_FR` in the `.env` file. The results are a blog page filled with 100 posts randomly generated but with french sounding authors :
+I wanted to personalize it so that the names of post's authors sounded french. The PHP library `Fake` allows us to do that by modifying the value of the `APP_FAKER_LOCALE`variable to `fr_FR` in the `.env` file. The results are a blog page filled with 100 posts randomly generated but with french authors :
 
 <p align="center">
     <img src = "public/img/capture_autogen_posts.jpg">
@@ -49,6 +49,38 @@ I wanted to personalize it so that the names of post's authors sounded french. T
 
 NOTE : don't forget to add `use Illuminate\Database\Eloquent\Factories\HasFactory;` and `use HasFactory;` in the `Post.php` file located at `app\Models` to inform Laravel that you are using a factory in this model. 
 
+## Tables relationship
+
+The next step was to add relationship between table : we want every article author to be a user. Here is how I did it : 
+
+- Firstly we need to change our `PostFactory.php` so that the author is not a randomly assigned name but a user : `'author_id' => User::factory(),`. 
+
+- Then we need to tell the database that a user can write many posts. For that we go in `User.php` and we add a method that will define the type of relationship between users and posts (in this case **one to many**) : 
+```public function posts(): HasMany{
+        return $this->hasMany(Post::class,'author_id');
+    }
+```
+
+- Now, we need the "inverse link" : which mean being able to access the author from an article. For that we go in `Post.php` and add the method : 
+```public function author(): BelongsTo{
+        return $this->belongsTo(User::class);
+    }
+```
+
+- Finally we modify our UI (the `post.blade.php` and `posts.blade.php` views and we also create a new route) so that when clicking on the author of an article, we can see all the articles that he wrote :
+
+<p align="center">
+    <img src = "public/img/capture_recherche_article_meme_auteur.jpg">
+</p>
+
+NOTE : 
+- The command in Tinker to create 5 users and generate 100 posts they created (the number of posts per user is random) is : `App\Models\Post::factory(100)->recycle(User::factory(5)->create())->create();` 
+
+- I followed the same instructions to assign a category (Science, Economy, Politics,...) to each post. The functionality are the same : every new post will be assigned a category randomly and by clicking on the category of the post you can see all the posts with that category and to make it more appealing each category is displayed in a different color 
+
+<p align="center">
+    <img src = "public/img/capture_recherche_article_meme_cate.jpg">
+</p>
 
 ## Commits History
 
@@ -56,8 +88,12 @@ Please note that all commits before the one named **"Merge branch 'recovered wor
 
 ### Key Commits:
 
+- **Relationship between tables users posts and categories**  
+  *Date: Sep 25, 2024 - ID:*  
+  This commit adds relationship between tables so that we can use foreign key to access information on an author (a topic) from the posts written by this user (in this category).
+
 - **Implementation of model factory to autogenerate posts**  
-  *Date: Sep 24, 2024*  
+  *Date: Sep 24, 2024 - ID: 01add1a658af5ad8ab90aa33e5490b6396a84458*  
   This commit adds the possibility to autogenerate posts using the Model Factory features of Laravel.
 
 - **No more 404 errors when clicking the navbar from a post**  
