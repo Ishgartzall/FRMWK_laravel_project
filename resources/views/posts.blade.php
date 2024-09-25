@@ -8,8 +8,7 @@
 
     <div class="text-base text-gray-500">
       <!-- Dynamic Category Color -->
-      <a href="/categories/{{$post->category->id}}" class="hover:underline">
-        <span class="category-label 
+      <a href="/categories/{{$post->category->id}}" class="hover:underline font-bold
             @if($post->category->name == 'Science') category-science 
             @elseif($post->category->name == 'Environment') category-environment
             @elseif($post->category->name == 'Economy') category-economy
@@ -17,9 +16,8 @@
             @elseif($post->category->name == 'Politics') category-politics
             @endif">
           {{ $post->category->name }}
-        </span>
       </a> 
-      | <a href="/authors/{{$post->author->id}}" class="hover:underline">{{$post->author->name}}</a> 
+      |  by <em><a href="/authors/{{$post->author->id}}" class="hover:underline">{{$post->author->name}}</em></a> 
       | {{$post->created_at->diffForHumans()}}
     </div>
      <!-- original code 

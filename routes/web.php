@@ -30,12 +30,12 @@ Route::get('/posts/{post:slug}',function(Post $post){
 
 Route::get('/authors/{user}',function(User $user){
     //$post=Post::find($id);
-    return view('posts',['title' => 'Articles written by '.$user->name, 'posts' => $user->posts]);
+    return view('posts',['title' => 'Articles written by : '.$user->name, 'posts' => $user->posts]);
 });
 
 Route::get('/categories/{category}',function(Category $category){
     //$post=Post::find($id);
-    return view('posts',['title' => 'Articles on the topic '.$category->name, 'posts' => $category->posts]);
+    return view('posts',['title' => 'Articles on the topic : '.$category->name, 'posts' => $category->posts]);
 });
 
 Route::get('/contact', function () {

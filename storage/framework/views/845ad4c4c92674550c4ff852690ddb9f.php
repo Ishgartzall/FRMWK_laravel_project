@@ -17,8 +17,7 @@
 
     <div class="text-base text-gray-500">
       <!-- Dynamic Category Color -->
-      <a href="/categories/<?php echo e($post->category->id); ?>" class="hover:underline">
-        <span class="category-label 
+      <a href="/categories/<?php echo e($post->category->id); ?>" class="hover:underline font-bold
             <?php if($post->category->name == 'Science'): ?> category-science 
             <?php elseif($post->category->name == 'Environment'): ?> category-environment
             <?php elseif($post->category->name == 'Economy'): ?> category-economy
@@ -27,9 +26,8 @@
             <?php endif; ?>">
           <?php echo e($post->category->name); ?>
 
-        </span>
       </a> 
-      | <a href="/authors/<?php echo e($post->author->id); ?>" class="hover:underline"><?php echo e($post->author->name); ?></a> 
+      |  by <em><a href="/authors/<?php echo e($post->author->id); ?>" class="hover:underline"><?php echo e($post->author->name); ?></em></a> 
       | <?php echo e($post->created_at->diffForHumans()); ?>
 
     </div>

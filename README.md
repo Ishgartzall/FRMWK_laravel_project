@@ -56,13 +56,15 @@ The next step was to add relationship between table : we want every article auth
 - Firstly we need to change our `PostFactory.php` so that the author is not a randomly assigned name but a user : `'author_id' => User::factory(),`. 
 
 - Then we need to tell the database that a user can write many posts. For that we go in `User.php` and we add a method that will define the type of relationship between users and posts (in this case **one to many**) : 
-```public function posts(): HasMany{
+```
+public function posts(): HasMany{
         return $this->hasMany(Post::class,'author_id');
     }
 ```
 
 - Now, we need the "inverse link" : which mean being able to access the author from an article. For that we go in `Post.php` and add the method : 
-```public function author(): BelongsTo{
+```
+public function author(): BelongsTo{
         return $this->belongsTo(User::class);
     }
 ```
@@ -76,7 +78,7 @@ The next step was to add relationship between table : we want every article auth
 NOTE : 
 - The command in Tinker to create 5 users and generate 100 posts they created (the number of posts per user is random) is : `App\Models\Post::factory(100)->recycle(User::factory(5)->create())->create();` 
 
-- I followed the same instructions to assign a category (Science, Economy, Politics,...) to each post. The functionality are the same : every new post will be assigned a category randomly and by clicking on the category of the post you can see all the posts with that category and to make it more appealing each category is displayed in a different color 
+- I followed the same instructions to assign a category (Science, Economy, Politics,...) to each post. The functionality are the same : every new post will be assigned a category randomly and by clicking on the category of the post you can see all the posts in that category. To make it more appealing each category is displayed in a different color. 
 
 <p align="center">
     <img src = "public/img/capture_recherche_article_meme_cate.jpg">
@@ -88,9 +90,9 @@ Please note that all commits before the one named **"Merge branch 'recovered wor
 
 ### Key Commits:
 
-- **Relationship between tables users posts and categories**  
-  *Date: Sep 25, 2024 - ID:*  
-  This commit adds relationship between tables so that we can use foreign key to access information on an author (a topic) from the posts written by this user (in this category).
+- **Relationship between tables Users Posts and Categories**  
+  *Date: Sep 25, 2024 - ID : 7a09fd07ed448c8fc5c10e1f11808366889ede4b*  
+  This commit adds relationship between tables so that we can use foreign key to access information on an author (or a topic) from the posts written by this user (or in this category).
 
 - **Implementation of model factory to autogenerate posts**  
   *Date: Sep 24, 2024 - ID: 01add1a658af5ad8ab90aa33e5490b6396a84458*  

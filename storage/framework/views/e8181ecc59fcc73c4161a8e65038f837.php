@@ -10,10 +10,30 @@
 <?php $component->withAttributes([]); ?>
    <?php $__env->slot('title', null, []); ?> <?php echo e($title); ?> <?php $__env->endSlot(); ?>
   <article class="py-8 max-w-screen-md">
-      <h2 class = "mb-1 text-3xl tracking-tight font-bold text-gray-900"><?php echo e($post['title']); ?></h2>
+    <h2 class = "mb-1 text-3xl tracking-tight font-bold text-gray-900"><?php echo e($post['title']); ?></h2>
+    
     <div class="text-base text-gray-500">
-      <a href="/authors/<?php echo e($post->author->id); ?>"><?php echo e($post->author->name); ?></a> | <?php echo e($post->created_at->diffForHumans()); ?> 
-    </div>  
+      <!-- Dynamic Category Color -->
+      <a href="/categories/<?php echo e($post->category->id); ?>" class="hover:underline font-bold 
+            <?php if($post->category->name == 'Science'): ?> category-science 
+            <?php elseif($post->category->name == 'Environment'): ?> category-environment
+            <?php elseif($post->category->name == 'Economy'): ?> category-economy
+            <?php elseif($post->category->name == 'Sport'): ?> category-sport
+            <?php elseif($post->category->name == 'Politics'): ?> category-politics
+            <?php endif; ?>">
+          <?php echo e($post->category->name); ?>
+
+      </a> 
+      |  by <em><a href="/authors/<?php echo e($post->author->id); ?>" class="hover:underline"><?php echo e($post->author->name); ?></em></a> 
+      | <?php echo e($post->created_at->diffForHumans()); ?>
+
+    </div>
+    
+    <!-- original code 
+      <div class="text-base text-gray-500">
+        <a href="/categories/<?php echo e($post->category->id); ?>"><?php echo e($post->category->name); ?></a> | <a href="/authors/<?php echo e($post->author->id); ?>"><?php echo e($post->author->name); ?></a> | <?php echo e($post->created_at->diffForHumans()); ?> 
+      </div>
+    -->  
     <p class="my-4 font-light"><?php echo e($post['body']); ?></p>
     <a href="/posts" class="font-medium text-blue-500 hover:underline">&laquo; Back to posts</a>
   </article>
