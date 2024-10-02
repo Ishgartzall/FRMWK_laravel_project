@@ -4,6 +4,8 @@
 
 Welcome to the Github repository of the Laravel project of Victor Lequeux Audran done for the course Framework Based Programmming at ITS !
 
+**Please not that this project is based on the videos of "Web Programming UNPAS" accessible with the link https://youtube.com/playlist?list=PLFIM0718LjIW1Xb7cVj7LdAr32ATDQMdr&si=EnzDnAorEajXezoN**
+
 ## Use of Tailwind template and Blade component
 
 In order to have a functional and clear Website, I used the PHP code of free pages templates in my views from the website Tailwind.
@@ -86,11 +88,11 @@ NOTE :
 
 ## Database seeder
 
-To make my database testing even easier I created seeders. Their purpose is to automate the creation of fake datas without having to enter command in Tinker. Instead, when you do a fresh migration of you database you type the command : `php artisan migrate:fresh --seed` and it will fill the tables of your database based on what you write on the seeder files. Here are the steps to do this : 
+To make my database testing even easier I created seeders. Their purpose is to automate the creation of fake datas without having to enter command in Tinker. Instead, when you do a fresh migration of you database you type the command : `php artisan migrate:fresh --seed` and it will fill the tables of your database based on what you wrote on the seeder files. Here are the steps to do this : 
 
 - Enter the command `php artisan make:seeder` in the terminal, name them properly (here I chose `CategorySeeder.php` and `UserSeeder.php`)
 
-- In the file tap the same command that you'd have entered in Tinker (without the path) for example if I want to create 6 users everytime I make a fresh migration I write : `User::factory(6)->create();` I did this for my categories aswell.
+- In the file tap the same command that you'd have entered in Tinker (without the path) for example if I want to create 6 users everytime I make a fresh migration I write : `User::factory(6)->create();`. I did this for my categories aswell.
 
 - Then to seed the whole database, you go in `DatabaseSeeder.php` (same folder as the others : `\App\Database\seeders`) and you "call" the "sub-seeders" :   
 ```
@@ -104,7 +106,7 @@ Post::factory(100)->recycle([
 
 ## Solving the N+1 problem
 
-The problem on my posts page is that the number of queries needed wasn't optimized : whenever I loaded the page the system was doing 205 queries to search for the posts infos. The reason is that the at first the database was doing a `select*` of all posts but then, for each post the database was doing 2 queries : one to retrieve the author and one for the category. 
+The problem on my posts page is that the number of queries needed wasn't optimized : whenever I loaded the page the system was doing 205 queries to search for the posts infos. The reason is that at first the database was doing a `select*` of all posts but then, for each post the database was doing 2 queries : one to retrieve the author and one for the category. 
 
 <p align="center">
     <img src = "public/img/capture_n+1_problem.jpg">
@@ -208,7 +210,7 @@ Please note that all commits before the one named **"Merge branch 'recovered wor
 ### Key Commits:
 
 - **Implementation of : seeders, queries optimization (n+1 problem), posts UI redesign, searching and pagination**  
-  *Date: Oct 3, 2024 - ID :*  
+  *Date: Oct 3, 2024 - ID : 39fee658d63df1a4889a1b54f870e7642e7c5175*  
   This commit adds many features like seeders, I also optimized the numbers of queries by solving the n+1 problem with eager loading, redesigned the posts' page UI and added pagination and the possibility to search for a precise post.
 
 - **Relationship between tables Users Posts and Categories**  
