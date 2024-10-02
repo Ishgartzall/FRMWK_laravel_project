@@ -84,11 +84,132 @@ NOTE :
     <img src = "public/img/capture_recherche_article_meme_cate.jpg">
 </p>
 
+## Database seeder
+
+To make my database testing even easier I created seeders. Their purpose is to automate the creation of fake datas without having to enter command in Tinker. Instead, when you do a fresh migration of you database you type the command : `php artisan migrate:fresh --seed` and it will fill the tables of your database based on what you write on the seeder files. Here are the steps to do this : 
+
+- Enter the command `php artisan make:seeder` in the terminal, name them properly (here I chose `CategorySeeder.php` and `UserSeeder.php`)
+
+- In the file tap the same command that you'd have entered in Tinker (without the path) for example if I want to create 6 users everytime I make a fresh migration I write : `User::factory(6)->create();` I did this for my categories aswell.
+
+- Then to seed the whole database, you go in `DatabaseSeeder.php` (same folder as the others : `\App\Database\seeders`) and you "call" the "sub-seeders" :   
+```
+$this->call([CategorySeeder::class,UserSeeder::class]);
+Post::factory(100)->recycle([
+    Category::all(),
+    User::all(),
+])->create();
+```
+**If your factories and models are properly set up it should fill your database automatically every fresh migration !**
+
+## Solving the N+1 problem
+
+The problem on my posts page is that the number of queries needed wasn't optimized : whenever I loaded the page the system was doing 205 queries to search for the posts infos. The reason is that the at first the database was doing a `select*` of all posts but then, for each post the database was doing 2 queries : one to retrieve the author and one for the category. 
+
+<p align="center">
+    <img src = "public/img/capture_n+1_problem.jpg">
+</p>
+
+This was not good and very slow. Fortunately Laravel has a feature called "eager loading" to solve this. All you need to do is add this line to your `Post.php` file : `protected $with = ['author','category'];` this will inform the system that it needs to only run one query to retrieve all the author from all the posts and one for all the categories. The result is that for 100 posts we no longer need 200+1 query (it's not a 2N+1 situation anymore).
+
+<p align="center">
+    <img src = "public/img/capture_n+1_problem_solved.jpg">
+</p>
+
+## Posts page UI redesign
+
+The posts page was ugly so I redesigned it using a flowbite template (this is using the tools already installed with tailwind) :
+
+<p align="center">
+    <img src = "public/img/captures_posts_page_redesign.jpg">
+</p>
+
+## New feature : searching a precise post
+
+To implement this feature I needed to :
+
+- Add a function called scopeFilter in my `Post.php` model : 
+```
+public function scopeFilter($query, array $filters){
+    if ($filters['category'] ?? false) {
+        $query->whereHas('category', function ($query) use ($filters) {
+            $query->where('slug', $filters['category']);
+        });
+    }
+
+    if ($filters['author'] ?? false) {
+        $query->whereHas('author', function ($query) use ($filters) {
+            $query->where('username', $filters['author']);
+        });
+    }
+
+    if ($filters['search'] ?? false) {
+        $query->where('title', 'like', '%' . $filters['search'] . '%');
+    }
+} 
+```
+
+- Then I had to modify my `/posts` route to inform it that if there was a search filter it needed to display only certain posts : 
+```
+Route::get('/posts', function () {
+    $title = 'Blog'; // Default title
+
+    // Check if there's a category filter in the request
+    if (request('category')) {
+        $category = Category::where('slug', request('category'))->first();
+        if ($category) {
+            $title = 'Category: ' . $category->name;
+        }
+    }
+
+    // Check if there's an author filter in the request
+    if (request('author')) {
+        $author = User::where('username', request('author'))->first();
+        if ($author) {
+            $title = 'Posts by: ' . $author->name;
+        }
+    }
+
+    // Check if there's a search filter in the request
+    if (request('search')) {
+        $title = 'Search results for: ' . request('search');
+    }
+
+    // Return the view with the dynamic title
+    return view('posts', [
+        'title' => $title,
+        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)
+    ]);
+});
+```
+
+- Finally I added a search bar from Tailwind to my UI and set the href correctly like this : `href="/posts?category={{$post->category->slug}}"`
+
+<p align="center">
+    <img src = "public/img/capture_recherche_post.jpg">
+</p>
+
+## New feature : pagination
+
+If there are a lot of posts and you want to display them on multiple pages you just need to add / change 2 things : 
+
+- In your `web.php` file : in the return or your `/posts` route, change `latest()->get()` by `latest()->paginate(9)` (9 is the number of posts you want to display by page)
+
+- In you `posts.blade.php` view : just add `{{$posts->links()}}` where you want you pagination bar. Laravel will do the rest !
+
+<p align="center">
+    <img src = "public/img/capture_pagination.jpg">
+</p>
+
 ## Commits History
 
 Please note that all commits before the one named **"Merge branch 'recovered work'" (Sep 19, 2024 - ID: c55d8411d7fe51dc48da76154c67618c94d596e8)** are not relevant, as I encountered issues setting up the repository. Therefore, I will start explaining my modifications from this commit onward.
 
 ### Key Commits:
+
+- **Implementation of : seeders, queries optimization (n+1 problem), posts UI redesign, searching and pagination**  
+  *Date: Oct 3, 2024 - ID :*  
+  This commit adds many features like seeders, I also optimized the numbers of queries by solving the n+1 problem with eager loading, redesigned the posts' page UI and added pagination and the possibility to search for a precise post.
 
 - **Relationship between tables Users Posts and Categories**  
   *Date: Sep 25, 2024 - ID : 7a09fd07ed448c8fc5c10e1f11808366889ede4b*  

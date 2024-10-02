@@ -23,7 +23,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence(6), //create a sentence of approximately 6 words
             'author_id' => User::factory(),
-            'category_id' => Category::inRandomOrder()->first()->id, // Assign random category
+            'category_id' => Category::inRandomOrder()->first()->id, // Assign random category 
             'slug' => Str::slug(fake()->sentence()),
             'body' => fake()->text()
         ];

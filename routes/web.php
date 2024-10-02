@@ -20,22 +20,49 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts',['title'=>'Blog', 'posts'=> Post::all()]);
+    $title = 'Blog'; // Default title
+
+    // Check if there's a category filter in the request
+    if (request('category')) {
+        $category = Category::where('slug', request('category'))->first();
+        if ($category) {
+            $title = 'Category: ' . $category->name;
+        }
+    }
+
+    // Check if there's an author filter in the request
+    if (request('author')) {
+        $author = User::where('username', request('author'))->first();
+        if ($author) {
+            $title = 'Posts by: ' . $author->name;
+        }
+    }
+
+    // Check if there's a search filter in the request
+    if (request('search')) {
+        $title = 'Search results for: ' . request('search');
+    }
+
+    // Return the view with the dynamic title
+    return view('posts', [
+        'title' => $title,
+        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)
+    ]);
 });
 
+
+
+
 Route::get('/posts/{post:slug}',function(Post $post){
-    //$post=Post::find($id);
     return view('post',['title' => 'Single Post', 'post' => $post]);
 });
 
-Route::get('/authors/{user}',function(User $user){
-    //$post=Post::find($id);
-    return view('posts',['title' => 'Articles written by : '.$user->name, 'posts' => $user->posts]);
+Route::get('/authors/{user:username}',function(User $user){
+    return view('posts',['title' => 'Written by : '.$user->name, 'posts' => $user->posts]);
 });
 
-Route::get('/categories/{category}',function(Category $category){
-    //$post=Post::find($id);
-    return view('posts',['title' => 'Articles on the topic : '.$category->name, 'posts' => $category->posts]);
+Route::get('/posts?category={$post->category->slug}',function(Category $category){
+    return view('posts',['title' => 'Topic : '.$category->name, 'posts' => $category->posts]);
 });
 
 Route::get('/contact', function () {

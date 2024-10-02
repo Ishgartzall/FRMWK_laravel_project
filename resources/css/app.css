@@ -2,8 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-.category-science { color: blue; }
-.category-environment { color: green; }
-.category-economy { color: orange; }
-.category-sport { color: red; }
-.category-politics { color: rgb(79, 76, 76); }
+.category-sport {
+    color: green;
+}
+
+.category-health {
+    color: red;
+}
+
+.category-technology {
+    color: teal;
+}
+
+.category-education {
+    color: purple;
+}
+
+.category-travel {
+    color: orange;
+}
+
+.category-entertainment {
+    color: pink;
+}
+
+.category-science {
+    color: blue;
+}
+
+.category-economy {
+    color: gold;
+}
+
+.category-politics {
+    color: darkred;
+}
+
+.category-war {
+    color: darkgray;
+}
+
+.category-video-games {
+    color: lime;
+}
+
+.category-space {
+    color: navy;
+}
+
+.category-world-of-warcraft {
+    color: brown;
+}
+
